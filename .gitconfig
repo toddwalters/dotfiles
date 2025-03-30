@@ -1,0 +1,10 @@
+[user]
+	name = Todd Walters
+	email = waltodders@gmail.com
+[core]
+	editor = code --wait
+# [filter "nbstripout"]
+# 	clean = \"/opt/homebrew/anaconda3/bin/python3.11\" -m nbstripout
+# 	smudge = cat
+# [diff "ipynb"]
+# 	textconv = \"/opt/homebrew/anaconda3/bin/python3.11\" -m nbstripout -t
