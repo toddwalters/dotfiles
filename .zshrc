@@ -43,4 +43,4 @@ unset __conda_setup
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
 
-export PATH="/Users/toddwalters/.local/bin:$PATH"
+export PATH="/opt/hombrew/bin:/Users/toddwalters/.local/bin:$PATH"
