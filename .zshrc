@@ -5,6 +5,8 @@ HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
+export PATH="/opt/homebrew/bin:/Users/toddwalters/.local/bin:$PATH"
+
 setopt appendhistory
 
 export GREP_OPTIONS='--color=auto'
@@ -42,5 +44,3 @@ unset __conda_setup
 
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
-
-export PATH="/opt/hombrew/bin:/Users/toddwalters/.local/bin:$PATH"
