@@ -32,6 +32,17 @@ else
   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 fi
 
+
+###############################################################################
+# Power                                                                       #
+###############################################################################
+
+# Explicitly prevent system sleep when display is off
+pmset -a sleep 0
+
+# Enable start up automatically after a power failure
+pmset -a autorestart 1
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
