@@ -41,7 +41,7 @@ fi
 sudo /usr/bin/pmset -a sleep 0
 
 # Enable start up automatically after a power failure
-sudo /usr/bin/pmset -a autorestart 0
+sudo /usr/bin/pmset -a autorestart 1
 
 ###############################################################################
 # General UI/UX                                                               #
