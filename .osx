@@ -38,10 +38,10 @@ fi
 ###############################################################################
 
 # Explicitly prevent system sleep when display is off
-/usr/bin/pmset -a sleep 0
+sudo /usr/bin/pmset -a sleep 0
 
 # Enable start up automatically after a power failure
-/usr/bin/pmset -a autorestart 0
+sudo /usr/bin/pmset -a autorestart 0
 
 ###############################################################################
 # General UI/UX                                                               #
