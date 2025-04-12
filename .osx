@@ -40,6 +40,12 @@ fi
 # Explicitly prevent system sleep when display is off
 sudo /usr/bin/pmset -a sleep 0
 
+# Disable Disk Sleep
+sudo /usr/bin/pmset -a disksleep 0
+
+# Disable Display Sleep
+sudo /usr/bin/pmset -a displaysleep 0
+
 # Enable start up automatically after a power failure
 sudo /usr/bin/pmset -a autorestart 1
 
