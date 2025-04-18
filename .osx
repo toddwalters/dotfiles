@@ -222,7 +222,7 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 /opt/homebrew/bin/dockutil --add '/System/Applications/iPhone Mirroring.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Copilot.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/System/Applications/Utilities/System Information.app' --no-restart
-/opt/homebrew/bin/dockutil --add '/System/Applications/System Preferences.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/System/Applications/System Settings.app' --no-restart
 # /opt/homebrew/bin/dockutil --add '/Applications/Managed Software Center.app' --no-restart
 /opt/homebrew/bin/dockutil --add '~/Downloads'
 /opt/homebrew/bin/dockutil --add '~/Development'
