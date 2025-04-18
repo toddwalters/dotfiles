@@ -147,7 +147,7 @@ defaults -currentHost write com.apple.controlcenter DoNotDisturb -dict showInMen
 defaults -currentHost write com.apple.controlcenter DoNotDisturb -dict showInMenuBarIfActive -bool true
 
 defaults -currentHost write com.apple.controlcenter AirPlay -dict showInMenuBar -bool false
-
+defaults -currentHost write com.apple.controlcenter AirPlay -dict showInMenuBarIfActive -bool true
 
 ###############################################################################
 # Finder                                                                      #
