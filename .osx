@@ -136,17 +136,9 @@ defaults write com.apple.screencapture disable-shadow -bool true
 # defaults -currentHost write com.apple.controlcenter Sound -dict showInMenuBar -bool true
 # defaults -currentHost write com.apple.controlcenter Display -dict showInMenuBar -bool true
 # defaults -currentHost write com.apple.controlcenter UserSwitcher -dict showInMenuBar -bool true
-# 
-# defaults -currentHost write com.apple.controlcenter NowPlaying -dict showInMenuBar -bool false
 # defaults -currentHost write com.apple.controlcenter NowPlaying -dict showInMenuBarIfActive -bool true
-# 
-# defaults -currentHost write com.apple.controlcenter ScreenMirroring -dict showInMenuBar -bool false
 # defaults -currentHost write com.apple.controlcenter ScreenMirroring -dict showInMenuBarIfActive -bool true
-# 
-# defaults -currentHost write com.apple.controlcenter DoNotDisturb -dict showInMenuBar -bool false
 # defaults -currentHost write com.apple.controlcenter DoNotDisturb -dict showInMenuBarIfActive -bool true
-# 
-# defaults -currentHost write com.apple.controlcenter AirPlay -dict showInMenuBar -bool false
 # defaults -currentHost write com.apple.controlcenter AirPlay -dict showInMenuBarIfActive -bool true
 
 ###############################################################################
