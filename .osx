@@ -208,6 +208,28 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # the Dock to launch apps.
 # defaults write com.apple.dock persistent-apps -array
 
+/usr/bin/defaults write com.apple.dock show-recents -bool false
+/usr/local/bin/dockutil --remove all --no-restart
+/usr/local/bin/dockutil --add '/System/Applications/Launchpad.app' --no-restart
+/usr/local/bin/dockutil --add '/Volumes/s990pro/Applications/Arc.app' --no-restart
+/usr/local/bin/dockutil --add '/Volumes/s990pro/Applications/Shortwave.app' --no-restart
+/usr/local/bin/dockutil --add '/Volumes/s990pro/Applications/Visual Studio Code.app' --no-restart
+/usr/local/bin/dockutil --add '/Volumes/s990pro/Applications/Warp.app' --no-restart
+# /usr/local/bin/dockutil --add '/System/Applications/Utilities/Console.app' --no-restart
+/usr/local/bin/dockutil --add '/Applications/1Password.app' --no-restart
+# /usr/local/bin/dockutil --add '/System/Applications/Utilities/Activity Monitor.app' --no-restart
+/usr/local/bin/dockutil --add '/System/Applications/iPhone Mirroring.app' --no-restart
+/usr/local/bin/dockutil --add '/Volumes/s990pro/Applications/Copilot.app' --no-restart
+/usr/local/bin/dockutil --add '/System/Applications/Utilities/System Information.app' --no-restart
+/usr/local/bin/dockutil --add '/System/Applications/System Preferences.app' --no-restart
+# /usr/local/bin/dockutil --add '/Applications/Managed Software Center.app' --no-restart
+/usr/local/bin/dockutil --add '~/Downloads'
+/usr/local/bin/dockutil --add '~/Development'
+
+
+
+
+
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
 
