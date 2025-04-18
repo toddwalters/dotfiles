@@ -1,12 +1,18 @@
 # Apple system related
+#
 alias turnonbt='blueutil --power 1'
 alias turnoffbt='blueutil --power 0'
-alias turnoffsleep='sudo pmset -a sleep 0; sudo pmset -a hibernatemode 0; sudo pmset -a disablesleep 1'
-alias turnonsleep='sudo pmset -a sleep 1; sudo pmset -a hibernatemode 3; sudo pmset -a disablesleep 0'
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES;killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+# Show/hide hidden files in Finder
+alias show='defaults write com.apple.finder AppleShowAllFiles YES;killall Finder /System/Library/CoreServices/Finder.app'
+alias hide='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+# PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
+alias plistbuddy="/usr/libexec/PlistBuddy"
 
 # Git
+#
 alias gpom='git pull origin master'
 alias gmo='git merge origin'
 alias gmu='git merge --no-commit upstream/main'
@@ -27,6 +33,7 @@ alias stash='git stash'
 alias sapply='git stash apply'
 
 # Docker
+#
 alias di='docker images list'
 alias dcp='docker container prune -f'
 alias di='docker images'
@@ -39,6 +46,7 @@ alias gcl='/Applications/Microsoft\ Edge\ Dev.app/Contents/MacOS/Microsoft\ Edge
 alias awl='/Applications/Microsoft\ Edge\ Dev.app/Contents/MacOS/Microsoft\ Edge\ Dev --profile-directory="Profile 1" https://waltodders.awsapps.com/start &> /dev/null &'
 
 # Miscellaneous
+#
 alias actacond='conda activate .conda'
 alias cat='bat'
 alias dtz='date +"%Y-%m-%dT%H:%M:%S%z"'
@@ -56,3 +64,7 @@ alias digs='dig +noall +answer'
 alias powershell='/usr/local/bin/pwsh'
 alias venv='python3 -m venv venv && . venv/bin/activate && python3 -m pip install -U pip'
 alias weather='curl wttr.in'
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
