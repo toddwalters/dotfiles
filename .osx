@@ -230,12 +230,9 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Shortwave.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Visual Studio Code.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Warp.app' --no-restart
-# /opt/homebrew/bin/dockutil --add '/System/Applications/Utilities/Console.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Applications/1Password.app' --no-restart
-# /opt/homebrew/bin/dockutil --add '/System/Applications/Utilities/Activity Monitor.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/System/Applications/iPhone Mirroring.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Copilot.app' --no-restart
-# /opt/homebrew/bin/dockutil --add '/System/Applications/Utilities/System Information.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/System/Applications/System Settings.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Obsidian.app' --no-restart
 /opt/homebrew/bin/dockutil --add '~/Downloads'
