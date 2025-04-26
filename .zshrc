@@ -5,7 +5,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
-export PATH="/opt/homebrew/bin:/Users/toddwalters/.local/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/Users/toddwalters/.local/bin:$PATH"
 
 setopt appendhistory
 
