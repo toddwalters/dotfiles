@@ -228,7 +228,7 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 /opt/homebrew/bin/dockutil --add '/System/Applications/Launchpad.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Arc.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Dia.app' --no-restart
-/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Microsoft.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Microsoft Edge.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/ApplicationsChatGPT.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Shortwave.app' --no-restart
 /opt/homebrew/bin/dockutil --add '/Applications/Visual Studio Code.app' --no-restart
