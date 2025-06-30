@@ -8,3 +8,5 @@
 # 	smudge = cat
 # [diff "ipynb"]
 # 	textconv = \"/opt/homebrew/anaconda3/bin/python3.11\" -m nbstripout -t
+[init]
+	defaultBranch = main

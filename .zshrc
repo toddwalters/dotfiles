@@ -6,6 +6,7 @@ HISTSIZE=100000
 SAVEHIST=100000
 
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/Users/toddwalters/.local/bin:$PATH"
+export DOCKER_CONFIG=$HOME/.docker-nokeychain
 
 setopt appendhistory
 
