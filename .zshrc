@@ -5,7 +5,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/Volumes/s990pro//Users/toddwalters/.local/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/Volumes/s990pro/Users/toddwalters/.local/bin:$PATH"
 export DOCKER_CONFIG=$HOME/.docker-nokeychain
 
 setopt appendhistory
