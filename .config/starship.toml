@@ -6,6 +6,7 @@ $directory\
 [](fg:#3B76F0 bg:#1C3A5E)\
 $username\
 $hostname\
+[](fg:#3B76F0 bg:#1C3A5E)\
 $localip\
 $shlvl\
 $singularity\
@@ -186,14 +187,14 @@ style = 'yellow'
 [username]
 format = '\[[$user]($style)\]'
 style_user = "bold dimmed blue"
-show_always = false
+show_always = true
 
 [hostname]
 ssh_only = false
 format = "<[$hostname]($style)>"
-trim_at = "-"
+# trim_at = "-"
 style = "bold dimmed white"
-disabled = true
+disabled = false
 
 [directory]
 format = "[$path ]($style)"
