@@ -19,7 +19,6 @@ for file in $HOME/.local/include/*;
   do source $file
 done
 
-eval "$(pyenv init -)"
 eval "$(mcfly init zsh)"
 eval $(thefuck --alias fuck)
 eval "$(starship init zsh)"
