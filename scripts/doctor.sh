@@ -45,6 +45,7 @@ check_command eza optional
 check_command fastfetch optional
 check_command fnm optional
 check_command mcfly optional
+check_command shellcheck optional
 check_command starship optional
 check_command thefuck optional
 check_command zoxide optional

@@ -24,11 +24,18 @@ jobs:
       - name: Syntax checks
         working-directory: ${{ runner.temp }}/home/.dotfiles
         run: |
-          sh -n bootstrap.sh install.sh scripts/audit.sh scripts/doctor.sh scripts/adopt-file.sh scripts/list-backups.sh scripts/restore-backup.sh scripts/secret-scan.sh
+          sh -n bootstrap.sh install.sh scripts/adopt-file.sh scripts/apply-macos-defaults.sh scripts/audit.sh scripts/doctor.sh scripts/list-backups.sh scripts/restore-backup.sh scripts/secret-scan.sh scripts/shellcheck.sh
           zsh -n .zshrc .local/aws_functions.sh .local/misc_functions.sh .local/my_aliases.sh
 
       - name: Install ripgrep
         run: brew install ripgrep
+
+      - name: Install shellcheck
+        run: brew install shellcheck
+
+      - name: ShellCheck
+        working-directory: ${{ runner.temp }}/home/.dotfiles
+        run: ./scripts/shellcheck.sh
 
       - name: Secret scan
         working-directory: ${{ runner.temp }}/home/.dotfiles
@@ -58,3 +65,7 @@ jobs:
             echo "restore-backup unexpectedly succeeded for a missing backup"
             exit 1
           fi
+
+      - name: macOS defaults dry run
+        working-directory: ${{ runner.temp }}/home/.dotfiles
+        run: ./scripts/apply-macos-defaults.sh --dry-run --no-restart
