@@ -19,6 +19,8 @@ for file in $HOME/.local/include/*;
   do source $file
 done
 
+eval "$(fnm env --use-on-cd)"
+eval "$(zoxide init zsh)"
 eval "$(mcfly init zsh)"
 eval $(thefuck --alias fuck)
 eval "$(starship init zsh)"
@@ -44,3 +46,5 @@ unset __conda_setup
 
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
+
+source "$HOME/.config/broot/launcher/bash/br"

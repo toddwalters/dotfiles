@@ -3,10 +3,27 @@
 	email = waltodders@gmail.com
 [core]
 	editor = code --wait
+    excludesfile = ~/.gitignore
 # [filter "nbstripout"]
 # 	clean = \"/opt/homebrew/anaconda3/bin/python3.11\" -m nbstripout
 # 	smudge = cat
 # [diff "ipynb"]
 # 	textconv = \"/opt/homebrew/anaconda3/bin/python3.11\" -m nbstripout -t
 [init]
-	defaultBranch = main
+  defaultBranch = main
+[push]
+  default = simple
+[merge]
+  tool = kdiff3
+[difftool]
+  prompt = false
+[alias]
+  c = commit
+  ca = commit -a
+  cm = commit -m
+  cam = commit -am
+  d = diff
+  dc = diff --cached
+  l = log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
+[pull]
+  rebase = true

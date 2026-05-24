@@ -2,3 +2,33 @@
 *.LSOverride
 Thumbs.db
 .bundle
+
+# Local machine state and credentials.
+.aws/
+.azure/
+.claude/
+.claude.json
+.codex/
+.creds/
+.docker/
+.gnupg/
+.kube/
+.ssh/
+.vars
+.config/gh/hosts.yml
+.config/gcloud/
+
+# Generated state, caches, and histories.
+.cache/
+.local/
+.npm/
+.ollama/
+.tart/
+.vscode/
+.vscode-insiders/
+*.log
+*_history
+.lesshst
+.viminfo
+.zcompdump*
+.zsh_sessions/

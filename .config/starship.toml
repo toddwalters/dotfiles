@@ -1,16 +1,20 @@
+command_timeout = 1000
+
 format = """
-[](bg:#030B16 fg:#ffffff)\
-[ ](bg:#ffffff fg:#000000)\
-[](fg:#ffffff bg:#1C3A5E)\
+[░▒▓](#a3aed2)\
+[  ](bg:#a3aed2 fg:#090c0c)\
+[](bg:#769ff0 fg:#a3aed2)\
 $directory\
-[](fg:#3B76F0 bg:#1C3A5E)\
+[](fg:#769ff0 bg:#394260)\
 $username\
 $hostname\
-[](fg:#3B76F0 bg:#1C3A5E)\
 $localip\
 $shlvl\
 $singularity\
 $kubernetes\
+$aws\
+$azure\
+$gcloud\
 $vcsh\
 $fossil_branch\
 ${custom.git_server}\
@@ -19,6 +23,7 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
+[](fg:#394260 bg:#212736)\
 $hg_branch\
 $pijul_channel\
 $docker_context\
@@ -83,8 +88,27 @@ $status\
 $os\
 $container\
 $shell\
+$time\
+[ ](fg:#1d2230)\
 $character"""
 add_newline = false
+
+# Palette
+palette = 'tokyo_night'
+
+[palettes.tokyo_night]
+color_bg1 = "#1a1b26"
+color_bg3 = "#24283b"
+color_blue = "#7aa2f7"
+color_aqua = "#73daca"
+color_yellow = "#e0af68"
+color_orange = "#ff9e64"
+color_red = "#f7768e"
+color_purple = "#bb9af7"
+color_white = "#a9b1d6"
+color_bright_white = "#e3e5e5"
+color_dimmed_white = "#a0a9cb"
+color_bright_black = "#414868"
 
 ################################################################################
 ## Custom Commands
@@ -178,29 +202,36 @@ style = 'yellow'
 # style = "bold dimmed white"
 # disabled = false
 # 
-# [time]
-# time_format = "%T"
-# format = '[[ 🕙 $time ](bg:#1C3A5E fg:#ffffff)]($style)'
-# style = "bg:#1d2230"
+[time]
 # disabled = false
+# time_format = "%T"
+# style = "bg:#1d2230"
+# format = '[[ 🕙 $time ](bg:#1C3A5E fg:#ffffff)]($style)'
+# Tokyo-night theme
+# 
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#1d2230"
+format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 
 [username]
-format = '\[[$user]($style)\]'
-style_user = "bold blue"
 show_always = true
+style_user = "bg:color_orange fg:color_bg1"
+style_root = "bg:color_orange fg:color_red"
+format = '[ $user]($style)'
 
 [hostname]
 ssh_only = false
 format = "<[$hostname]($style)>"
 # trim_at = "-"
-style = "bold white"
+style = "bold dimmed white"
 disabled = false
 
 [directory]
-format = "[$path ]($style)"
-style = "fg:#E4E4E4 bg:#3B76F0"
-truncation_length = 45
-truncation_symbol = "  "
+style = "fg:#e3e5e5 bg:#769ff0"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
 
 [directory.substitutions]
 "Documents" = " "
@@ -214,12 +245,22 @@ truncation_symbol = "  "
 ## GIT
 ################################################################################
 [git_branch]
-format = '\[[$symbol$branch]($style)\]'
+# format = '\[[$symbol$branch]($style)\]'
 symbol = '🌱 '
-style = "bold green"
+# style = "bold green"
+# tokyo-night theme
+#
+# symbol = ""
+style = "bg:#394260"
+format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
 
 [git_state]
-format = '\[[\($state( $progress_current of $progress_total)\)]($style)\]'
+# format = '\[[\($state( $progress_current of $progress_total)\)]($style)\]'
+format = '\[[\($state( $progress_current of $progress_total)\)]($style)\](fg:#769ff0 bg:#394260)]($style)'
+# tokyo-night theme
+#
+style = "bg:#394260"
+# format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
 
 [git_status]
 conflicted = "⚔️ "
@@ -244,63 +285,71 @@ disabled = false
 ################################################################################
 ## Languages & Tools
 ################################################################################
-# [aws]
-# format = '[$symbol($profile )(\($region\) )]($style)'
-# style = 'fg:#ff9e00 bg:#000000'
-# symbol = '  '
-# 
-# [aws.region_aliases]
-# ap-southeast-2 = 'apse2'
-# us-east-1 = 'use1'
-# us-east-2 = 'use2'
-# 
-# [azure]
-# disabled = false
-# format = '[$symbol($username )($subscription)]($style)'
-# symbol = ' ﴃ '
-# style = 'fg:#FFFFFF bg:#3B76F0'
-# 
-# [azure.subscription_aliases]
-# 'Waltodders Azure Sub 1' = 'wt-az-sub-1'
+[aws]
+format = '[$symbol($profile )(\($region\) )]($style)'
+style = 'fg:#ff9e00 bg:#000000'
+symbol = '  '
 
+[aws.region_aliases]
+ap-southeast-2 = 'apse2'
+us-east-1 = 'use1'
+us-east-2 = 'use2'
+
+[azure]
+disabled = false
+format = '[$symbol($username )($subscription)]($style)'
+symbol = ' ﴃ '
+style = 'fg:#e3e5e5 bg:#769ff0'
+
+[azure.subscription_aliases]
+'Waltodders Azure Sub 1' = 'wt-az-sub-1'
 
 [bun]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [c]
+symbol = " "
 format = '\[[$symbol($version(-$name))]($style)\]'
 
 [cmake]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [cobol]
 format = '\[[$symbol($version)]($style)\]'
 
 [conda]
+symbol = " "
 format = '\[[$symbol$environment]($style)\]'
 
 [crystal]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [daml]
 format = '\[[$symbol($version)]($style)\]'
 
 [dart]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [deno]
 format = '\[[$symbol($version)]($style)\]'
 
 [docker_context]
+symbol = " "
 format = '\[[$symbol$context]($style)\]'
 
 [dotnet]
 format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
 
 [elixir]
+symbol = " "
 format = '\[[$symbol($version \(OTP $otp_version\))]($style)\]'
 
 [elm]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [erlang]
@@ -312,15 +361,16 @@ format = '\[[$symbol($version)]($style)\]'
 [fossil_branch]
 format = '\[[$symbol$branch]($style)\]'
 
-# [gcloud]
-# format = '[$symbol$account(@$domain)(\($project\))]($style)'
-# symbol = '️  '
+[gcloud]
+format = '[$symbol$account(@$domain)(\($project\))]($style)'
+symbol = '️  '
 # style = 'fg:#ffcc00 bg:#ff0000'
 # #style = 'fg:#0066ff bg:#ff0000'
 # #style = 'fg:#FFFFFF bg:#3B76F0'
 # disabled = false
 
 [golang]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [gradle]
@@ -330,6 +380,7 @@ format = '\[[$symbol($version)]($style)\]'
 format = '\[[$symbol]($style)\]'
 
 [haskell]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [haxe]
@@ -342,9 +393,11 @@ format = '\[[$symbol($version)]($style)\]'
 format = '\[[$symbol$branch]($style)\]'
 
 [java]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [julia]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [kotlin]
@@ -383,6 +436,57 @@ format = '\[[$symbol$cloud(\($project\))]($style)\]'
 [os]
 format = '\[[$symbol]($style)\]'
 
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+AOSC = " "
+Arch = " "
+Artix = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Elementary = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Ios = "󰀷 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+Zorin = " "
+
 [package]
 format = '\[[$symbol$version]($style)\]'
 
@@ -402,6 +506,7 @@ format = '\[[$symbol$stack]($style)\]'
 format = '\[[$symbol($version)]($style)\]'
 
 [python]
+symbol = " "
 format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
 style = "bold green"
 pyenv_version_name = false
@@ -414,13 +519,16 @@ format = '\[[$symbol($version-$vm_version)]($style)\]'
 format = '\[[$symbol($version)]($style)\]'
 
 [ruby]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [rust]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 style = "bold green"
 
 [scala]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [spack]
@@ -430,12 +538,14 @@ format = '\[[$symbol$environment]($style)\]'
 format = '\[[as $symbol]\]'
 
 [swift]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [terraform]
 format = '\[[$symbol$workspace]($style)\]'
 
 [vagrant]
+symbol = " "
 format = '\[[$symbol($version)]($style)\]'
 
 [vlang]

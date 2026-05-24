@@ -1,0 +1,18 @@
+# Appearance  
+macos-icon = retro  
+# theme = "TokyoNight"  
+theme = "Gruvbox Dark"  
+title = " "  
+macos-titlebar-proxy-icon = "hidden"  
+  
+# Fonts (Use Nerd Font to display icons)  
+font-family = "MesloLGS NF"  
+font-size = 12
+font-thicken = true  
+  
+# Cursor  
+adjust-cursor-thickness = 10  
+  
+# Copy-paste behavior optimization  
+copy-on-select = "clipboard"  
+clipboard-trim-trailing-spaces = true
