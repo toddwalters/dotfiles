@@ -9,6 +9,7 @@ state, and large tool directories.
 ## Tracked
 
 - Shell and editor basics: `.zshrc`, `.vimrc`, `.condarc`
+- Shell modules: `.local/aws_functions.sh`, `.local/misc_functions.sh`, `.local/my_aliases.sh`
 - Git config: `.gitconfig`, `.gitignore`, `.config/git/ignore`
 - macOS defaults script: `.osx`
 - Terminal and prompt config: `.config/ghostty/config`, `.config/starship.toml`
@@ -22,28 +23,84 @@ Do not add these directly:
 - Credentials: `.aws`, `.azure`, `.gnupg`, `.kube`, `.ssh`, `.creds`, `.vars`
 - App auth/state: `.config/gh/hosts.yml`, `.config/gcloud`, `.docker`
 - AI/tool state: `.claude`, `.claude.json`, `.codex`, `.agents`
-- Caches and large state: `.cache`, `.local`, `.npm`, `.ollama`, `.tart`, `.vscode`
+- Caches and large state: `.cache`, most of `.local`, `.npm`, `.ollama`, `.tart`, `.vscode`
 - Histories: `.zsh_history`, `.python_history`, `.lesshst`, `.viminfo`
+- Machine-local overrides: `.zshrc.local`, `.gitconfig.local`, `.config/ghostty/config.local`
+
+## Daily Use
+
+Start by syncing the repository and checking links:
+
+```sh
+cd "$HOME/.dotfiles"
+git pull
+make audit
+```
+
+After changing a managed config file, check the repo and commit normally:
+
+```sh
+cd "$HOME/.dotfiles"
+git status
+make check
+git add <files>
+git commit -m "Update dotfiles"
+git push
+```
+
+When an application writes a useful change to a managed file, adopt it back:
+
+```sh
+./install.sh --adopt
+make check
+```
 
 ## Install
 
 Run:
 
 ```sh
-./install.sh
+make install
 ```
 
 The installer creates parent directories as needed and symlinks tracked files
 into `$HOME`. If a destination already exists and is not the desired symlink, it
 is moved aside to a timestamped backup before the symlink is created.
 
+Preview changes without writing:
+
+```sh
+./install.sh --dry-run
+```
+
+Managed files are listed in `managed-files.txt`. The audit script uses the same
+manifest, so adding a new managed file is a two-step process:
+
+1. Add the file to the repo.
+2. Add its relative path to `managed-files.txt`.
+
+## Local Overrides
+
+Use local override files for machine-specific choices. They are ignored by git:
+
+- `~/.zshrc.local`
+- `~/.gitconfig.local`
+- `~/.config/ghostty/config.local`
+
+Examples live in:
+
+- `.zshrc.local.example`
+- `.gitconfig.local.example`
+- `.config/ghostty/config.local.example`
+
+`.zshrc` automatically sources `~/.zshrc.local` when it exists.
+
 ## Homebrew
 
 Refresh the Brewfile from the current machine with:
 
 ```sh
-brew bundle dump --file "$HOME/.config/homebrew/Brewfile" --force
-cp "$HOME/.config/homebrew/Brewfile" "$HOME/.dotfiles/.config/homebrew/Brewfile"
+make brew-dump
 ```
 
 Install packages on a new machine with:
@@ -51,3 +108,14 @@ Install packages on a new machine with:
 ```sh
 brew bundle --file "$HOME/.config/homebrew/Brewfile"
 ```
+
+## Checks
+
+Run all checks:
+
+```sh
+make check
+```
+
+This verifies symlinks, runs a focused secret-pattern scan, and syntax-checks
+the shell scripts.
