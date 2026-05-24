@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-DOTFILES_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+DOTFILES_DIR=$(cd -- "$(dirname -- "$0")/.." && pwd)
 HOME_DIR=${HOME:-/Users/toddwalters}
 MANIFEST="$DOTFILES_DIR/managed-files.txt"
 
@@ -59,5 +59,5 @@ else
   printf 'manifest-ok %s\n' "$relative_path"
 fi
 
-./install.sh --force
+./install.sh
 ./scripts/audit.sh

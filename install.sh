@@ -1,20 +1,18 @@
 #!/bin/sh
 set -eu
 
-DOTFILES_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+DOTFILES_DIR=$(cd -- "$(dirname -- "$0")" && pwd)
 HOME_DIR=${HOME:-/Users/toddwalters}
 BACKUP_DIR="$HOME_DIR/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 MANIFEST="$DOTFILES_DIR/managed-files.txt"
 DRY_RUN=0
-FORCE=0
 ADOPT=0
 
 usage() {
   cat <<'USAGE'
-Usage: ./install.sh [--dry-run] [--force] [--adopt]
+Usage: ./install.sh [--dry-run] [--adopt]
 
   --dry-run  Show planned changes without writing.
-  --force    Explicitly replace existing files; backups are still kept.
   --adopt    Copy existing home files into the repo before linking.
 USAGE
 }
@@ -22,7 +20,6 @@ USAGE
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --dry-run) DRY_RUN=1 ;;
-    --force) FORCE=1 ;;
     --adopt) ADOPT=1 ;;
     -h|--help)
       usage
@@ -71,8 +68,8 @@ link_file() {
   fi
 
   if [ -e "$target_path" ] || [ -L "$target_path" ]; then
-    run mkdir -p "$BACKUP_DIR/$(dirname -- "${target_path#$HOME_DIR/}")"
-    run mv "$target_path" "$BACKUP_DIR/${target_path#$HOME_DIR/}"
+    run mkdir -p "$BACKUP_DIR/$(dirname -- "${target_path#"$HOME_DIR"/}")"
+    run mv "$target_path" "$BACKUP_DIR/${target_path#"$HOME_DIR"/}"
     printf 'backup %s\n' "$target_path"
   fi
 

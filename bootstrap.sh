@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-DOTFILES_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+DOTFILES_DIR=$(cd -- "$(dirname -- "$0")" && pwd)
 INSTALL_BREW=0
 RUN_BREW_BUNDLE=0
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-DOTFILES_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+DOTFILES_DIR=$(cd -- "$(dirname -- "$0")/.." && pwd)
 
 if ! command -v rg >/dev/null 2>&1; then
   printf 'ripgrep is required for secret scanning\n' >&2

@@ -145,6 +145,22 @@ Install packages on a new machine with:
 brew bundle --file "$HOME/.config/homebrew/Brewfile"
 ```
 
+## macOS Defaults
+
+The `.osx` script changes macOS system preferences and can run commands that
+need sudo privileges. Use the wrapper so applying it is explicit:
+
+```sh
+./scripts/apply-macos-defaults.sh --dry-run --no-restart
+./scripts/apply-macos-defaults.sh --no-restart
+```
+
+To skip the confirmation prompt:
+
+```sh
+./scripts/apply-macos-defaults.sh --yes
+```
+
 ## Checks
 
 Run all checks:
@@ -154,7 +170,7 @@ make check
 ```
 
 This verifies symlinks, runs a focused secret-pattern scan, and syntax-checks
-the shell scripts.
+the shell scripts. When ShellCheck is installed, it also runs ShellCheck.
 
 Check machine readiness:
 
@@ -185,8 +201,10 @@ Pull requests and pushes to `main` run GitHub Actions checks on macOS:
 
 - POSIX shell syntax checks
 - zsh syntax checks
+- ShellCheck
 - focused secret scan
 - install into an isolated `$HOME`
 - symlink audit
 - doctor check
 - backup helper smoke tests
+- macOS defaults dry-run smoke test
