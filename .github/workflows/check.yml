@@ -24,7 +24,7 @@ jobs:
       - name: Syntax checks
         working-directory: ${{ runner.temp }}/home/.dotfiles
         run: |
-          sh -n install.sh scripts/audit.sh scripts/doctor.sh scripts/adopt-file.sh scripts/secret-scan.sh
+          sh -n bootstrap.sh install.sh scripts/audit.sh scripts/doctor.sh scripts/adopt-file.sh scripts/list-backups.sh scripts/restore-backup.sh scripts/secret-scan.sh
           zsh -n .zshrc .local/aws_functions.sh .local/misc_functions.sh .local/my_aliases.sh
 
       - name: Install ripgrep
@@ -47,3 +47,14 @@ jobs:
         env:
           HOME: ${{ runner.temp }}/home
         run: ./scripts/doctor.sh
+
+      - name: Backup helpers
+        working-directory: ${{ runner.temp }}/home/.dotfiles
+        env:
+          HOME: ${{ runner.temp }}/home
+        run: |
+          ./scripts/list-backups.sh
+          if ./scripts/restore-backup.sh missing-backup --dry-run; then
+            echo "restore-backup unexpectedly succeeded for a missing backup"
+            exit 1
+          fi

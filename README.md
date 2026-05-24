@@ -37,6 +37,19 @@ git pull
 make audit
 ```
 
+On a fresh machine, clone the repo to `~/.dotfiles`, then run:
+
+```sh
+cd "$HOME/.dotfiles"
+make bootstrap
+```
+
+To install Homebrew first or install packages from the Brewfile:
+
+```sh
+./bootstrap.sh --install-homebrew --brew-bundle
+```
+
 After changing a managed config file, check the repo and commit normally:
 
 ```sh
@@ -94,6 +107,29 @@ Examples live in:
 - `.config/ghostty/config.local.example`
 
 `.zshrc` automatically sources `~/.zshrc.local` when it exists.
+
+## Backups And Restore
+
+The installer moves replaced files into timestamped directories under
+`~/.dotfiles-backup`.
+
+List backups:
+
+```sh
+make list-backups
+```
+
+Preview restoring a backup:
+
+```sh
+./scripts/restore-backup.sh 20260523-211830 --dry-run
+```
+
+Restore a backup:
+
+```sh
+make restore-backup BACKUP=20260523-211830
+```
 
 ## Homebrew
 
@@ -153,3 +189,4 @@ Pull requests and pushes to `main` run GitHub Actions checks on macOS:
 - install into an isolated `$HOME`
 - symlink audit
 - doctor check
+- backup helper smoke tests
