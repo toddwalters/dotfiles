@@ -32,6 +32,26 @@ else
   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 fi
 
+
+###############################################################################
+# Power                                                                       #
+###############################################################################
+
+# Explicitly prevent system sleep when display is off
+sudo /usr/bin/pmset -a sleep 0
+
+# Disable Disk Sleep
+sudo /usr/bin/pmset -a disksleep 0
+
+# Disable Display Sleep
+sudo /usr/bin/pmset -a displaysleep 0
+
+# Disable power nap
+sudo /usr/bin/pmset -a powernap 0
+
+# Enable start up automatically after a power failure
+sudo /usr/bin/pmset -a autorestart 1
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
@@ -47,6 +67,13 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 # Automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+
+# Disable the “Are you sure you want to open this application?” dialog
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+# Reveal IP address, hostname, OS version, etc. when clicking the clock
+# in the login window
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
 # Restart automatically if the computer freezes
 if [[ "$RUN_AS_ROOT" = true ]]; then
@@ -91,14 +118,28 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 # Screen                                                                      #
 ###############################################################################
 
-# Save screenshots to Downloads folder.
-defaults write com.apple.screencapture location -string "${HOME}/Downloads"
+# Save screenshots to the Pictures/Screenshots
+defaults write com.apple.screencapture location -string "${HOME}/Pictures/Screenshots"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
 
 # Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
+
+###############################################################################
+# Menu Bar - THESE COMMANDS DON'T SEEM TO WORK                                #
+###############################################################################
+
+# defaults -currentHost write com.apple.controlcenter Bluetooth -dict showInMenuBar -bool true
+# defaults -currentHost write com.apple.controlcenter WiFi -dict showInMenuBar -bool true
+# defaults -currentHost write com.apple.controlcenter Sound -dict alwaysShowInMenuBar -bool true
+# defaults -currentHost write com.apple.controlcenter Display -dict alwaysShowInMenuBar -bool true
+# defaults -currentHost write com.apple.controlcenter UserSwitcher -dict showInMenuBar -bool true
+# defaults -currentHost write com.apple.controlcenter NowPlaying -dict showInMenuBarIfActive -bool true
+# defaults -currentHost write com.apple.controlcenter ScreenMirroring -dict showInMenuBarIfActive -bool true
+# defaults -currentHost write com.apple.controlcenter DoNotDisturb -dict showInMenuBarIfActive -bool true
+# defaults -currentHost write com.apple.controlcenter Focus -dict showInMenuBarIfActive -bool true
 
 ###############################################################################
 # Finder                                                                      #
@@ -116,7 +157,7 @@ defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # Finder: show hidden files by default
-# defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -155,25 +196,70 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
 
-# Use column view in all Finder windows by default
-# Four-letter codes for the other view modes: `icnv`, `Nlsv`, `clmv`, `Flwv`
-defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+# Use list view in all Finder windows by default
+# Four-letter codes for the other view modes: `icnv`:icon view, `Nlsv``:list view, `clmv`:column view, `Flwv`: Flow/Gallery view
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+# Expand the following File Info panes:
+# “General”, “Open with”, and “Sharing & Permissions”
+defaults write com.apple.finder FXInfoPanesExpanded -dict \
+    General -bool true \
+    OpenWith -bool true \
+    Privileges -bool true
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
+
+# Search: When performing a search, search the current folder by default
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 
+# Wipe all (default) app icons from the Dock
+# This is only really useful when setting up a new Mac, or if you don’t use
+# the Dock to launch apps.
+# defaults write com.apple.dock persistent-apps -array
+
+/usr/bin/defaults write com.apple.dock show-recents -bool false
+
+/opt/homebrew/bin/dockutil --remove all --no-restart
+/opt/homebrew/bin/dockutil --add '/System/Applications/Launchpad.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Arc.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Dia.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Microsoft Edge.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/ChatGPT.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Shortwave.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Applications/Visual Studio Code.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Warp.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Applications/1Password.app' --no-restart
+# /opt/homebrew/bin/dockutil --add '/System/Applications/iPhone Mirroring.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Copilot.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/System/Applications/System Settings.app' --no-restart
+/opt/homebrew/bin/dockutil --add '/Volumes/s990pro/Applications/Obsidian.app' --no-restart
+/opt/homebrew/bin/dockutil --add '~/Downloads'
+/opt/homebrew/bin/dockutil --add '~/Development'
+
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
+
 # Set the icon size of Dock items
-defaults write com.apple.dock tilesize -int 30
+defaults write com.apple.dock tilesize -int 60
 
 # Speed up Mission Control animations
 defaults write com.apple.dock expose-animation-duration -float 0.15
 
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
+
+# Add a spacer to the left side of the Dock (where the applications are)
+# defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+# defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+# defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+
+# Add a spacer to the right side of the Dock (where the Trash is)
+# defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
 
 # Enable the 'reduce transparency' option. Save GPU cycles.
 defaults write com.apple.universalaccess reduceTransparency -bool true
@@ -194,8 +280,8 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 defaults write com.apple.dock wvous-br-corner -int 2
 defaults write com.apple.dock wvous-br-modifier -int 0
 # Top right screen corner → Put display to sleep
-defaults write com.apple.dock wvous-tr-corner -int 10
-defaults write com.apple.dock wvous-tr-modifier -int 0
+# defaults write com.apple.dock wvous-tr-corner -int 10
+# defaults write com.apple.dock wvous-tr-modifier -int 0
 # Bottom left screen corner → Desktop
 defaults write com.apple.dock wvous-bl-corner -int 4
 defaults write com.apple.dock wvous-bl-modifier -int 0

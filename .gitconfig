@@ -4,11 +4,11 @@
 [core]
 	editor = code --wait
     excludesfile = ~/.gitignore
-[color]
-  branch = auto
-  diff = auto
-  interactive = auto
-  status = auto
+# [filter "nbstripout"]
+# 	clean = \"/opt/homebrew/anaconda3/bin/python3.11\" -m nbstripout
+# 	smudge = cat
+# [diff "ipynb"]
+# 	textconv = \"/opt/homebrew/anaconda3/bin/python3.11\" -m nbstripout -t
 [init]
   defaultBranch = main
 [push]

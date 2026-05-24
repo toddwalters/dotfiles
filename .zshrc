@@ -1,18 +1,24 @@
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/Volumes/s990pro/Users/toddwalters/.local/bin:$PATH"
+export DOCKER_CONFIG=$HOME/.docker-nokeychain
+
 setopt appendhistory
 
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/Users/toddwalters/.local/bin:$PATH"
-
 export GREP_OPTIONS='--color=auto'
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 for file in $HOME/.local/include/*;
   do source $file
 done
 
-eval "$(pyenv init -)"
 eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
 eval "$(mcfly init zsh)"
@@ -41,4 +47,4 @@ unset __conda_setup
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
 
-source /Users/toddwalters/.config/broot/launcher/bash/br
+source "$HOME/.config/broot/launcher/bash/br"
