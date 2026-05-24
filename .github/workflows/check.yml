@@ -1,0 +1,44 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  dotfiles:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare isolated HOME
+        run: |
+          mkdir -p "$RUNNER_TEMP/home"
+          cp -R "$GITHUB_WORKSPACE" "$RUNNER_TEMP/home/.dotfiles"
+
+      - name: Syntax checks
+        working-directory: ${{ runner.temp }}/home/.dotfiles
+        run: |
+          sh -n install.sh scripts/audit.sh scripts/doctor.sh scripts/adopt-file.sh scripts/secret-scan.sh
+          zsh -n .zshrc .local/aws_functions.sh .local/misc_functions.sh .local/my_aliases.sh
+
+      - name: Secret scan
+        working-directory: ${{ runner.temp }}/home/.dotfiles
+        run: ./scripts/secret-scan.sh
+
+      - name: Install into isolated HOME
+        working-directory: ${{ runner.temp }}/home/.dotfiles
+        env:
+          HOME: ${{ runner.temp }}/home
+        run: |
+          ./install.sh
+          ./scripts/audit.sh
+
+      - name: Doctor
+        working-directory: ${{ runner.temp }}/home/.dotfiles
+        env:
+          HOME: ${{ runner.temp }}/home
+        run: ./scripts/doctor.sh

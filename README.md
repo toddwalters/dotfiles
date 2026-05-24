@@ -51,7 +51,7 @@ git push
 When an application writes a useful change to a managed file, adopt it back:
 
 ```sh
-./install.sh --adopt
+make adopt FILE=.config/starship.toml
 make check
 ```
 
@@ -119,3 +119,37 @@ make check
 
 This verifies symlinks, runs a focused secret-pattern scan, and syntax-checks
 the shell scripts.
+
+Check machine readiness:
+
+```sh
+make doctor
+```
+
+`doctor` reports required and recommended tools, verifies managed symlinks, and
+shows which local override files are present.
+
+## Adopt A File
+
+Use `make adopt` when a tool writes a useful config change under `$HOME` and you
+want this repo to manage it:
+
+```sh
+make adopt FILE=.config/ghostty/config
+```
+
+The adopt helper copies the home file into the repo, adds it to
+`managed-files.txt` if needed, relinks managed files, and runs the symlink audit.
+
+Avoid adopting credentials, generated state, history, caches, or large app data.
+
+## CI
+
+Pull requests and pushes to `main` run GitHub Actions checks on macOS:
+
+- POSIX shell syntax checks
+- zsh syntax checks
+- focused secret scan
+- install into an isolated `$HOME`
+- symlink audit
+- doctor check
