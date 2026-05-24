@@ -15,12 +15,17 @@ Thumbs.db
 .kube/
 .ssh/
 .vars
+.zshrc.local
+.gitconfig.local
 .config/gh/hosts.yml
 .config/gcloud/
+.config/ghostty/config.local
 
 # Generated state, caches, and histories.
 .cache/
-.local/
+.local/*
+!.local/
+!.local/*.sh
 .npm/
 .ollama/
 .tart/

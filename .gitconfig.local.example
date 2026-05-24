@@ -1,0 +1,7 @@
+# Optional local Git settings. Include this manually from ~/.gitconfig if needed.
+#
+# [user]
+#   signingkey = YOUR_KEY_ID
+#
+# [commit]
+#   gpgsign = true

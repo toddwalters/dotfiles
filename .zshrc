@@ -1,33 +1,44 @@
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/Volumes/s990pro/Users/toddwalters/.local/bin:$PATH"
-export DOCKER_CONFIG=$HOME/.docker-nokeychain
-
 setopt appendhistory
+typeset -U path
 
+path=(
+  /opt/homebrew/bin
+  /opt/homebrew/sbin
+  "$HOME/.local/bin"
+  $path
+)
+
+export DOCKER_CONFIG="${DOCKER_CONFIG:-$HOME/.docker-nokeychain}"
 export GREP_OPTIONS='--color=auto'
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-for file in $HOME/.local/include/*;
-  do source $file
+for file in "$HOME"/.local/include/*.sh(N); do
+  [ -r "$file" ] && source "$file"
 done
 
-eval "$(fnm env --use-on-cd)"
-eval "$(zoxide init zsh)"
-eval "$(mcfly init zsh)"
-eval $(thefuck --alias fuck)
-eval "$(starship init zsh)"
+for file in "$HOME"/.local/*.sh(N); do
+  [ -r "$file" ] && source "$file"
+done
+
+if command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env --use-on-cd)"
+elif [ -s "/opt/homebrew/opt/nvm/nvm.sh" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  source "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && source "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+fi
+
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
+command -v mcfly >/dev/null 2>&1 && eval "$(mcfly init zsh)"
+command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias fuck)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
 PROMPT="${PROMPT}"$'\n'
 
-fastfetch
+command -v fastfetch >/dev/null 2>&1 && fastfetch
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -47,4 +58,5 @@ unset __conda_setup
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
 
-source "$HOME/.config/broot/launcher/bash/br"
+[ -r "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
+[ -r "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"

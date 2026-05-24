@@ -1,0 +1,4 @@
+# Machine-local Ghostty settings. Copy to ~/.config/ghostty/config.local
+# if you want a per-machine override.
+
+# font-size = 13

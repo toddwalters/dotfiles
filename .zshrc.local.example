@@ -1,0 +1,9 @@
+# Machine-local zsh customizations. Copy to ~/.zshrc.local and edit there.
+#
+# This file is intentionally not installed or tracked as ~/.zshrc.local.
+
+# Example: add a machine-specific bin directory.
+# path=("$HOME/bin" $path)
+
+# Example: choose a different Docker config for this machine.
+# export DOCKER_CONFIG="$HOME/.docker"
